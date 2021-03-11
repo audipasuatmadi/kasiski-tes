@@ -24,15 +24,20 @@ def attack(file, method):
             print('Applying kasiski examination\n')
             key_len = kasiski.find_key_length(cyphertext=cyphertext[0], seq_len=SEQ_LEN, max_key_len=MAX_KEY_LEN)
         elif method == 'ic':
+
             print('Applying index of coincidence examination\n')
             key_len = ic.find_key_length(cyphertext=cyphertext[0], max_key_len=MAX_KEY_LEN)
-        key = fa.restore_key(cyphertext[0], key_len)
-        decyphered = _decypher(cyphertext[0], key)
-        print('Chosen key length: '+str(key_len))
-        print('Restored key: '+str(key))
-        print('Plaintext: '+str(decyphered))
+        if (key_len == 0):
+            print("tidak didapatkan")
+        else:
+            key = fa.restore_key(cyphertext[0], key_len)
+            decyphered = _decypher(cyphertext[0], key)
+            print('Chosen key length: '+str(key_len))
+            print('Restored key: '+str(key))
+            print('Plaintext: '+str(decyphered))
 
 
 
-attack('encrypted/hostiletext.txt', 'kasiski')
+# attack('encrypted/hostiletext_benar.txt', 'kasiski')
+attack('encrypted/hostiletext_salah.txt', 'kasiski')
 #attack('encrypted/hostiletext.txt', 'ic')
